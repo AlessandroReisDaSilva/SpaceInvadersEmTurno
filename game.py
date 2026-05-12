@@ -31,9 +31,7 @@ def jogar():
     grid = inicializar_grid()
     pos_jogador = LARGURA // 2
     aliens = [[1, i] for i in range(2, 16, 2)]
-    vidas = 3
-    pontos = 0
-    nivel = 1
+    vidas, pontos, nivel = 3, 0, 1
 
     while vidas > 0:
         if not aliens:
