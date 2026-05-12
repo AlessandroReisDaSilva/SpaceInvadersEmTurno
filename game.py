@@ -22,16 +22,15 @@ def renderizar(grid, nome, vidas, pontos, nivel):
     print("-" * (LARGURA + 2))
 
 
-def salvar_pontuacao(nome, pontos):
-    with open(ARQUIVO, "a") as f:
-        f.write(f"{nome}:{pontos}\n")
-
+def salvar_pontuacao(nome_jogador, pontos):
+    with open(ARQUIVO, "a") as arquivo_ranking:
+        arquivo_ranking.write(f"{nome_jogador}:{pontos}\n")
 
 def carregar_ranking():
     if not os.path.isfile(ARQUIVO): return
     print("\n--- RANKING DOS TOP JOGADORES ---")
-    with open(ARQUIVO, "r") as f:
-        for linha in f: 
+    with open(ARQUIVO, "r") as arquivo_dados:
+        for linha in arquivo_dados:
             print(linha.strip())
 
 
@@ -50,9 +49,9 @@ def movimento_jogador(pos_jogador, acao):
 
 def tiro(pos_jogador, aliens, nivel):
     pontos_ganhos = 0
-    for i, (linha_alien, coluna_alien) in enumerate(aliens):
+    for indice_alien, (linha_alien, coluna_alien) in enumerate(aliens):
         if coluna_alien == pos_jogador:
-            aliens.pop(i)
+            aliens.pop(indice_alien)
             pontos_ganhos = 10 * nivel
             break
     return pontos_ganhos
@@ -65,13 +64,11 @@ def atualizar_aliens(aliens, nivel):
             alien[0] += 1
 
 
-def renderizar_grid(grid, pos_jogador, aliens):
-    for r in range(ALTURA):
-        for c in range(LARGURA):
-            grid[r][c] = ' '
-    
+def renderizar_grid(grid, pos_jogador, aliens)
+    for indice_linha in range(ALTURA):
+        for indice_coluna in range(LARGURA):
+            grid[indice_linha][indice_coluna] = ' '
     grid[ALTURA - 1][pos_jogador] = 'A'
-    
     for linha_alien, coluna_alien in aliens:
         if linha_alien < ALTURA:
             grid[linha_alien][coluna_alien] = 'W'
@@ -114,7 +111,7 @@ def jogar():
 
         for acao in comandos:
             pos_jogador = movimento_jogador(pos_jogador, acao)
-            
+
             if acao == 's':
                 pontos += tiro(pos_jogador, aliens, nivel)
 
